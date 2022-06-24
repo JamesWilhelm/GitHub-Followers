@@ -3,11 +3,13 @@
 //  GHFollowers
 //
 //  Created by James Wilhelm on 6/22/22.
-//  Copyright © 2022 Sean Allen. All rights reserved.
 //
-
 import Foundation
 
 enum SFSymbols {
     static let location = "mappin.and.ellipse"
+    static let repos = "folders"
+    static let gists = "text.alignleft"
+    static let followers = "heart"
+    static let following = "person.3"
 }
