@@ -3,7 +3,7 @@
 //  GHFollowers
 //
 //  Created by James Wilhelm on 6/15/22.
-//  Copyright © 2022 Sean Allen. All rights reserved.
+// 
 //
 
 import UIKit

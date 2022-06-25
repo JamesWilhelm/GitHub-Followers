@@ -3,7 +3,7 @@
 //  GHFollowers
 //
 //  Created by James Wilhelm on 6/21/22.
-//  Copyright © 2022 Sean Allen. All rights reserved.
+//
 //
 
 import UIKit
@@ -13,6 +13,7 @@ class UserInfoVC: UIViewController {
     let headerView = UIView()
     let itemViewOne = UIView()
     let itemViewTwo = UIView()
+    let dateLabel = GFBodyLabel(textAlignment: .center)
     var itemViews : [UIView] = []
     
     var username : String!
@@ -34,6 +35,9 @@ class UserInfoVC: UIViewController {
             case .success(let user):
                 DispatchQueue.main.async {
                     self.add(childVC: GFUserInfoVC(user: user), to: self.headerView)
+                    self.add(childVC: GFRepoItemVC(user: user), to: self.itemViewOne)
+                    self.add(childVC: GFFollowerItemVC(user: user), to: self.itemViewTwo)
+                    self.dateLabel.text = "GitHub since \(user.createdAt.convertToDisplayFormat())"
                 }
                 
             case .failure(let error):
@@ -50,15 +54,12 @@ class UserInfoVC: UIViewController {
     }
     
     func layoutUI(){
-        itemViews = [headerView,itemViewOne,itemViewTwo]
+        itemViews = [headerView,itemViewOne,itemViewTwo,dateLabel]
         
         for itemView in itemViews {
             view.addSubview(itemView)
             itemView.translatesAutoresizingMaskIntoConstraints = false
         }
-        
-        itemViewOne.backgroundColor = .systemPink
-        itemViewTwo.backgroundColor = .systemBlue
     
         NSLayoutConstraint.activate([
             headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -75,6 +76,11 @@ class UserInfoVC: UIViewController {
             itemViewTwo.leadingAnchor.constraint(equalTo: headerView.leadingAnchor, constant: 20),
             itemViewTwo.trailingAnchor.constraint(equalTo: headerView.trailingAnchor, constant: -20),
             itemViewTwo.heightAnchor.constraint(equalToConstant: 140),
+            
+            dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            dateLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            dateLabel.topAnchor.constraint(equalTo: itemViewTwo.bottomAnchor, constant: 20),
+            dateLabel.heightAnchor.constraint(equalToConstant: 18)
             
             
         ])
